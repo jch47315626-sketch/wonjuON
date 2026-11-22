@@ -12,10 +12,12 @@ export default function AppTabs() {
   return (
     <NativeTabs
       backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
+      indicatorColor={colors.backgroundSelected}
+      tintColor={colors.accentText}
+      iconColor={{ default: colors.textSecondary, selected: colors.accentText }}
       labelStyle={{
-        default: { fontFamily: AppFont.regular },
-        selected: { color: colors.text, fontFamily: AppFont.bold },
+        default: { fontFamily: AppFont.regular, color: colors.textSecondary },
+        selected: { color: colors.accentText, fontFamily: AppFont.bold },
       }}>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>홈</NativeTabs.Trigger.Label>

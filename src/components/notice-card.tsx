@@ -2,11 +2,18 @@ import * as WebBrowser from 'expo-web-browser';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Badge } from '@/components/badge';
+import { Card } from '@/components/card';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Spacing, type PastelTone } from '@/constants/theme';
 import type { Notice } from '@/types';
 import { formatDay } from '@/utils/date';
+
+const TONE: Record<Notice['topic'], PastelTone> = {
+  '생활·안전': 'peach',
+  '지원·혜택': 'butter',
+  '행사·문화': 'mint',
+  '모집·채용': 'lilac',
+};
 
 /** 시청 소식 한 건. 누르면 원주시청 원문을 엽니다. */
 export function NoticeCard({ item }: { item: Notice }) {
@@ -16,9 +23,9 @@ export function NoticeCard({ item }: { item: Notice }) {
       accessibilityRole="link"
       accessibilityHint="원주시청 홈페이지의 원문을 엽니다">
       {({ pressed }) => (
-        <ThemedView type="backgroundElement" style={[styles.card, pressed && styles.pressed]}>
+        <Card style={[styles.card, pressed && styles.pressed]}>
           <View style={styles.row}>
-            <Badge label={item.topic} />
+            <Badge label={item.topic} tone={TONE[item.topic]} />
             <ThemedText type="small" themeColor="textSecondary">
               {formatDay(item.date)} · {item.dept ?? item.board}
             </ThemedText>
@@ -34,7 +41,7 @@ export function NoticeCard({ item }: { item: Notice }) {
           <ThemedText type="small" themeColor="textSecondary">
             출처: {item.source} {item.board} · 원문 보기 ›
           </ThemedText>
-        </ThemedView>
+        </Card>
       )}
     </Pressable>
   );
@@ -42,7 +49,6 @@ export function NoticeCard({ item }: { item: Notice }) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: Spacing.three,
     padding: Spacing.three,
     gap: Spacing.one,
   },

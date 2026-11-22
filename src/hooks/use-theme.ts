@@ -3,7 +3,7 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import { Colors } from '@/constants/theme';
+import { Colors, Pastels } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export function useTheme() {
@@ -11,4 +11,10 @@ export function useTheme() {
   const theme = scheme === 'dark' ? 'dark' : 'light';
 
   return Colors[theme];
+}
+
+/** 지금 밝기 모드에 맞는 파스텔 색 묶음 */
+export function usePastels() {
+  const scheme = useColorScheme();
+  return Pastels[scheme === 'dark' ? 'dark' : 'light'];
 }

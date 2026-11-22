@@ -76,3 +76,23 @@ export type Notice = {
   source: string;
   sourceId?: string;
 };
+
+/** 네이버 뉴스 검색 API로 모은 원주 뉴스 한 건. 본문은 없고 누르면 언론사 원문을 엶. */
+export type News = {
+  /** 원문 주소 해시 */
+  id: string;
+  title: string;
+  /** API가 주는 짧은 요약 */
+  summary?: string;
+  /** 언론사 원문 주소 */
+  url: string;
+  /** 네이버 뉴스 주소 (있을 때만) */
+  naverUrl?: string;
+  /** 언론사 이름 */
+  press: string;
+  /** 서울 시간 기준 YYYY-MM-DD */
+  date: string;
+  /** ISO 시각 */
+  publishedAt: string;
+  source: string;
+};
