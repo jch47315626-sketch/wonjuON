@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
   },
   inner: {
-    flexGrow: 1,
+    flex: 1,
+    minWidth: 0,
     maxWidth: MaxContentWidth,
     gap: Spacing.one,
   },

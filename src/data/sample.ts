@@ -1,8 +1,8 @@
-import type { EventItem, Restaurant } from '@/types';
+import type { Restaurant } from '@/types';
 
 /**
- * 화면 개발용 예시 데이터입니다. 실제 가게·행사가 아닙니다.
- * 다음 단계에서 Firebase에 저장된 실제 데이터(TourAPI·KOPIS 수집 + 운영자 입력)로 바꿉니다.
+ * 화면 개발용 예시 맛집입니다. 실제 가게가 아닙니다.
+ * 다음 단계에서 운영자가 고른 실제 맛집 + TourAPI 음식점 정보로 바꿉니다.
  */
 export const sampleRestaurants: Restaurant[] = [
   {
@@ -39,42 +39,6 @@ export const sampleRestaurants: Restaurant[] = [
     hours: '09:00~22:00',
     localTip: '아이 동반하기 좋은 넓은 매장.',
     badges: ['주민추천'],
-    source: '예시 데이터',
-  },
-];
-
-export const sampleEvents: EventItem[] = [
-  {
-    id: 'e1',
-    title: '예시 겨울 빛 축제',
-    category: '축제',
-    startDate: '2026-12-05',
-    endDate: '2026-12-31',
-    place: '원주시 (예시 장소)',
-    fee: '무료',
-    host: '예시 주최',
-    source: '예시 데이터',
-  },
-  {
-    id: 'e2',
-    title: '예시 송년 음악회',
-    category: '공연',
-    startDate: '2026-12-20',
-    endDate: '2026-12-20',
-    place: '원주시 (예시 공연장)',
-    fee: '전석 20,000원',
-    host: '예시 주최',
-    source: '예시 데이터',
-  },
-  {
-    id: 'e3',
-    title: '예시 어린이 공예 체험',
-    category: '체험·교육',
-    startDate: '2026-12-13',
-    endDate: '2026-12-14',
-    place: '원주시 (예시 장소)',
-    fee: '5,000원',
-    host: '예시 주최',
     source: '예시 데이터',
   },
 ];
