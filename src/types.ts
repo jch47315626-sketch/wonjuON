@@ -55,3 +55,24 @@ export type EventItem = {
   source: string;
   sourceId?: string;
 };
+
+/** 원주시청 홈페이지 게시판에서 고른 주민 관심 소식. 자세한 내용은 url 의 원문을 봄. */
+export type Notice = {
+  /** "게시판번호-글번호" */
+  id: string;
+  title: string;
+  topic: '생활·안전' | '지원·혜택' | '행사·문화' | '모집·채용';
+  /** 새소식, 보도자료, 공고, 채용·시험 */
+  board: string;
+  /** 올린 날 YYYY-MM-DD */
+  date: string;
+  /** 담당 부서 */
+  dept?: string;
+  tel?: string;
+  /** 본문 앞부분 한두 문장 */
+  summary?: string;
+  /** 원문 주소 */
+  url: string;
+  source: string;
+  sourceId?: string;
+};
