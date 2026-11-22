@@ -6,14 +6,15 @@ import { RestaurantCard } from '@/components/restaurant-card';
 import { Screen } from '@/components/screen';
 import { ThemedText } from '@/components/themed-text';
 import { useEvents } from '@/data/events';
-import { sampleRestaurants } from '@/data/sample';
+import { pickOfTheDay, useRestaurants } from '@/data/restaurants';
 import { splitEvents } from '@/utils/date';
 
 export default function HomeScreen() {
   const { events } = useEvents();
   const { ongoing, upcoming } = splitEvents(events);
   const current = [...ongoing, ...upcoming].slice(0, 3);
-  const restaurants = sampleRestaurants.slice(0, 3);
+  const { restaurants: all } = useRestaurants();
+  const restaurants = pickOfTheDay(all, 3);
 
   return (
     <Screen title="원주ON" subtitle="오늘 원주에서 뭐 먹고, 어디 갈까?">
@@ -26,7 +27,7 @@ export default function HomeScreen() {
         current.map((e) => <EventCard key={e.id} item={e} />)
       )}
 
-      <SectionHeader title="주민 추천 맛집" href="/restaurants" />
+      <SectionHeader title="오늘의 원주 맛집" href="/restaurants" />
       {restaurants.map((r) => (
         <RestaurantCard key={r.id} item={r} />
       ))}

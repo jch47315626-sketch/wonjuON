@@ -42,8 +42,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "fetch:events": "node --env-file-if-exists=.env.local scripts/fetch-events.mjs",
-    "sync:events": "node --env-file-if-exists=.env.local scripts/sync-events.mjs"
+    "fetch:data": "node --env-file-if-exists=.env.local scripts/fetch-data.mjs",
+    "sync:data": "node --env-file-if-exists=.env.local scripts/sync-data.mjs"
   },
   "private": true,
   "engines": {

@@ -1,4 +1,4 @@
-name: 원주 행사 매일 수집
+name: 원주 행사·맛집 매일 수집
 
 on:
   schedule:
@@ -17,7 +17,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: node scripts/sync-events.mjs
+      - run: node scripts/sync-data.mjs
         env:
           TOURAPI_KEY: ${{ secrets.TOURAPI_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
