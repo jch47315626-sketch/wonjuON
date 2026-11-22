@@ -1,0 +1,25 @@
+name: 원주 뉴스 수집 (네이버 뉴스)
+
+on:
+  schedule:
+    # 한국 시간 7시부터 22시까지 3시간마다 (7, 10, 13, 16, 19, 22시) = UTC 22, 1, 4, 7, 10, 13시
+    - cron: '0 22 * * *'
+    - cron: '0 1,4,7,10,13 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/sync-news.mjs
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

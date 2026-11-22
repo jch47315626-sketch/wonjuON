@@ -8,11 +8,12 @@ import {
 } from 'expo-router/ui';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
 
-import { MaxContentWidth, Spacing } from '@/constants/theme';
+import { MaxContentWidth, Radius, Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 import { ThemedText } from './themed-text';
-import { ThemedView } from './themed-view';
 
+/** 웹 미리보기용 하단 탭: 갈색 동그란 바에 이모지 아이콘, 고른 탭은 복숭아색. */
 export default function AppTabs() {
   return (
     <Tabs>
@@ -20,16 +21,16 @@ export default function AppTabs() {
       <TabList asChild>
         <CustomTabList>
           <TabTrigger name="home" href="/" asChild>
-            <TabButton>홈</TabButton>
+            <TabButton emoji="🏠">홈</TabButton>
           </TabTrigger>
           <TabTrigger name="restaurants" href="/restaurants" asChild>
-            <TabButton>맛집</TabButton>
+            <TabButton emoji="🍜">맛집</TabButton>
           </TabTrigger>
           <TabTrigger name="events" href="/events" asChild>
-            <TabButton>행사</TabButton>
+            <TabButton emoji="🎪">행사</TabButton>
           </TabTrigger>
           <TabTrigger name="saved" href="/saved" asChild>
-            <TabButton>저장</TabButton>
+            <TabButton emoji="💛">저장</TabButton>
           </TabTrigger>
         </CustomTabList>
       </TabList>
@@ -37,30 +38,36 @@ export default function AppTabs() {
   );
 }
 
-export function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
+export function TabButton({
+  children,
+  isFocused,
+  emoji,
+  ...props
+}: TabTriggerSlotProps & { emoji: string }) {
+  const theme = useTheme();
   return (
-    <Pressable {...(props as PressableProps)} style={({ pressed }) => pressed && styles.pressed}>
-      <ThemedView
-        type={isFocused ? 'backgroundSelected' : 'backgroundElement'}
-        style={styles.tabButtonView}>
-        <ThemedText type="small" themeColor={isFocused ? 'text' : 'textSecondary'}>
-          {children}
-        </ThemedText>
-      </ThemedView>
+    <Pressable
+      {...(props as PressableProps)}
+      style={({ pressed }) => [styles.tab, pressed && styles.pressed]}>
+      <View style={[styles.icon, isFocused && { backgroundColor: theme.accent }]}>
+        <ThemedText style={styles.emoji}>{emoji}</ThemedText>
+      </View>
+      <ThemedText
+        type={isFocused ? 'smallBold' : 'small'}
+        style={[styles.label, { color: isFocused ? '#FFFFFF' : theme.tabInactive }]}>
+        {children}
+      </ThemedText>
     </Pressable>
   );
 }
 
 export function CustomTabList(props: TabListProps) {
+  const theme = useTheme();
   return (
     <View {...props} style={styles.tabListContainer}>
-      <ThemedView type="backgroundElement" style={styles.innerContainer}>
-        <ThemedText type="smallBold" style={styles.brandText}>
-          원주ON
-        </ThemedText>
-
+      <View style={[styles.innerContainer, { backgroundColor: theme.tabBar }]}>
         {props.children}
-      </ThemedView>
+      </View>
     </View>
   );
 }
@@ -68,6 +75,7 @@ export function CustomTabList(props: TabListProps) {
 const styles = StyleSheet.create({
   tabListContainer: {
     position: 'absolute',
+    bottom: 0,
     width: '100%',
     padding: Spacing.three,
     justifyContent: 'center',
@@ -76,23 +84,33 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.five,
-    borderRadius: Spacing.five,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.card + 4,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-around',
     flexGrow: 1,
-    gap: Spacing.two,
     maxWidth: MaxContentWidth,
+    boxShadow: '0 6px 18px rgba(0,0,0,0.15)',
   },
-  brandText: {
-    marginRight: 'auto',
+  tab: {
+    alignItems: 'center',
+    flex: 1,
   },
   pressed: {
     opacity: 0.7,
   },
-  tabButtonView: {
-    paddingVertical: Spacing.one,
+  icon: {
     paddingHorizontal: Spacing.three,
-    borderRadius: Spacing.three,
+    paddingVertical: Spacing.half,
+    borderRadius: Radius.icon,
+  },
+  emoji: {
+    fontSize: 20,
+    lineHeight: 26,
+  },
+  label: {
+    fontSize: 11,
+    lineHeight: 14,
   },
 });

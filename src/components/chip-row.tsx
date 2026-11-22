@@ -1,8 +1,8 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 type Props<T extends string> = {
   options: readonly T[];
@@ -10,8 +10,9 @@ type Props<T extends string> = {
   onChange: (v: T) => void;
 };
 
-/** 가로로 넘기는 필터 버튼 줄 */
+/** 가로로 넘기는 필터 버튼 줄. 고른 버튼은 복숭아색으로 채움. */
 export function ChipRow<T extends string>({ options, value, onChange }: Props<T>) {
+  const theme = useTheme();
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
       {options.map((o) => {
@@ -22,11 +23,19 @@ export function ChipRow<T extends string>({ options, value, onChange }: Props<T>
             onPress={() => onChange(o)}
             accessibilityRole="button"
             accessibilityState={{ selected }}>
-            <ThemedView
-              type={selected ? 'backgroundSelected' : 'backgroundElement'}
-              style={styles.chip}>
-              <ThemedText type={selected ? 'smallBold' : 'small'}>{o}</ThemedText>
-            </ThemedView>
+            <View
+              style={[
+                styles.chip,
+                selected
+                  ? { backgroundColor: theme.accent, borderColor: theme.accent }
+                  : { backgroundColor: theme.backgroundElement, borderColor: theme.border },
+              ]}>
+              <ThemedText
+                type={selected ? 'smallBold' : 'small'}
+                style={selected ? styles.selectedText : undefined}>
+                {o}
+              </ThemedText>
+            </View>
           </Pressable>
         );
       })}
@@ -41,6 +50,10 @@ const styles = StyleSheet.create({
   chip: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
-    borderRadius: Spacing.four,
+    borderRadius: Radius.chip,
+    borderWidth: 2,
+  },
+  selectedText: {
+    color: '#FFFFFF',
   },
 });

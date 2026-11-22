@@ -1,6 +1,7 @@
 import { NativeTabs } from 'expo-router/native-tabs';
 import { useColorScheme } from 'react-native';
 
+import { AppFont } from '@/constants/fonts';
 import { Colors } from '@/constants/theme';
 
 /** 하단 탭 4개: 홈 · 맛집 · 행사 · 저장. 아이콘은 iOS SF Symbols, 안드로이드 Material 아이콘. */
@@ -11,8 +12,13 @@ export default function AppTabs() {
   return (
     <NativeTabs
       backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
+      indicatorColor={colors.backgroundSelected}
+      tintColor={colors.accentText}
+      iconColor={{ default: colors.textSecondary, selected: colors.accentText }}
+      labelStyle={{
+        default: { fontFamily: AppFont.regular, color: colors.textSecondary },
+        selected: { color: colors.accentText, fontFamily: AppFont.bold },
+      }}>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>홈</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'house', selected: 'house.fill' }} md="home" />

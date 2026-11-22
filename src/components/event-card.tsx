@@ -2,8 +2,8 @@ import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 
 import { Badge } from '@/components/badge';
+import { Card } from '@/components/card';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import type { EventItem } from '@/types';
 import { formatPeriod } from '@/utils/date';
@@ -16,7 +16,7 @@ type Props = {
 
 export function EventCard({ item, dimmed }: Props) {
   return (
-    <ThemedView type="backgroundElement" style={[styles.card, dimmed && styles.dimmed]}>
+    <Card style={dimmed && styles.dimmed}>
       {item.imageUrl ? (
         <Image
           source={item.imageUrl}
@@ -37,7 +37,7 @@ export function EventCard({ item, dimmed }: Props) {
           </ThemedText>
         ) : null}
         <View style={styles.row}>
-          {item.fee ? <Badge label={item.fee} /> : null}
+          {item.fee ? <Badge label={item.fee} tone="mint" /> : null}
           {item.host ? (
             <ThemedText type="small" themeColor="textSecondary" style={styles.host}>
               {item.host}
@@ -49,15 +49,11 @@ export function EventCard({ item, dimmed }: Props) {
           {item.imageUrl ? ' (사진 포함)' : ''}
         </ThemedText>
       </View>
-    </ThemedView>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    borderRadius: Spacing.three,
-    overflow: 'hidden',
-  },
   dimmed: {
     opacity: 0.6,
   },

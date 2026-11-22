@@ -2,8 +2,8 @@ import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 
 import { Badge } from '@/components/badge';
+import { Card } from '@/components/card';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import type { Restaurant } from '@/types';
 
@@ -12,7 +12,7 @@ export function RestaurantCard({ item }: { item: Restaurant }) {
   const hours = [item.hours, item.closedDays && `휴무: ${item.closedDays}`].filter(Boolean).join('\n');
 
   return (
-    <ThemedView type="backgroundElement" style={styles.card}>
+    <Card>
       {item.imageUrl ? (
         <Image
           source={item.imageUrl}
@@ -40,7 +40,7 @@ export function RestaurantCard({ item }: { item: Restaurant }) {
         {item.badges.length > 0 ? (
           <View style={styles.badges}>
             {item.badges.map((b) => (
-              <Badge key={b} label={b} />
+              <Badge key={b} label={b} tone="butter" />
             ))}
           </View>
         ) : null}
@@ -49,15 +49,11 @@ export function RestaurantCard({ item }: { item: Restaurant }) {
           {item.imageUrl ? ' (사진 포함)' : ''}
         </ThemedText>
       </View>
-    </ThemedView>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    borderRadius: Spacing.three,
-    overflow: 'hidden',
-  },
   image: {
     width: '100%',
     aspectRatio: 16 / 9,

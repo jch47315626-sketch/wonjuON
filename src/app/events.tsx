@@ -14,7 +14,7 @@ export default function EventsScreen() {
   const current = [...ongoing, ...upcoming];
 
   return (
-    <Screen title="행사" subtitle={`원주 축제·공연·행사 · ${formatUpdatedAt(fetchedAt)} 갱신`}>
+    <Screen title="행사" emoji="🎪" subtitle={`원주 축제·공연·행사 · ${formatUpdatedAt(fetchedAt)} 갱신`}>
       <ThemedText type="smallBold">진행 중·예정</ThemedText>
       {current.length === 0 ? (
         <ThemedText themeColor="textSecondary">
