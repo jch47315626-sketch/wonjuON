@@ -43,7 +43,9 @@
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
     "fetch:data": "node --env-file-if-exists=.env.local scripts/fetch-data.mjs",
-    "sync:data": "node --env-file-if-exists=.env.local scripts/sync-data.mjs"
+    "sync:data": "node --env-file-if-exists=.env.local scripts/sync-data.mjs",
+    "fetch:notices": "node scripts/sync-notices.mjs --file",
+    "sync:notices": "node --env-file-if-exists=.env.local scripts/sync-notices.mjs"
   },
   "private": true,
   "engines": {
