@@ -1,5 +1,6 @@
-import { Platform, StyleSheet, Text, type TextProps } from 'react-native';
+import { Platform, StyleSheet, Text, type TextProps, type TextStyle } from 'react-native';
 
+import { AppFont } from '@/constants/fonts';
 import { Fonts, ThemeColor } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
@@ -10,8 +11,20 @@ export type ThemedTextProps = TextProps & {
 
 export function ThemedText({ style, type = 'default', themeColor, ...rest }: ThemedTextProps) {
   const theme = useTheme();
+  const merged = StyleSheet.flatten([{ color: theme[themeColor ?? 'text'] }, styles[type], style]);
 
-  return <Text style={[{ color: theme[themeColor ?? 'text'] }, styles[type], style]} {...rest} />;
+  return <Text style={withAppFont(merged ?? {}, type)} {...rest} />;
+}
+
+/**
+ * 원주체는 Regular·Bold 두 파일뿐이라, 굵기(fontWeight) 대신 글꼴 파일을 골라 씀.
+ * 600 이상이면 Bold, 아니면 Regular. 코드용 고정폭 글꼴(type="code")은 그대로 둠.
+ */
+function withAppFont(style: TextStyle, type: NonNullable<ThemedTextProps['type']>): TextStyle {
+  if (type === 'code') return style;
+  const { fontWeight, ...rest } = style;
+  const bold = Number(fontWeight ?? 400) >= 600 || fontWeight === 'bold';
+  return { ...rest, fontFamily: bold ? AppFont.bold : AppFont.regular };
 }
 
 const styles = StyleSheet.create({
