@@ -5,11 +5,12 @@ import { EventCard } from '@/components/event-card';
 import { RestaurantCard } from '@/components/restaurant-card';
 import { Screen } from '@/components/screen';
 import { ThemedText } from '@/components/themed-text';
-import { events } from '@/data/events';
+import { useEvents } from '@/data/events';
 import { sampleRestaurants } from '@/data/sample';
 import { splitEvents } from '@/utils/date';
 
 export default function HomeScreen() {
+  const { events } = useEvents();
   const { ongoing, upcoming } = splitEvents(events);
   const current = [...ongoing, ...upcoming].slice(0, 3);
   const restaurants = sampleRestaurants.slice(0, 3);

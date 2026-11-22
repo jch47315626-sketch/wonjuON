@@ -1,0 +1,23 @@
+name: 원주 행사 매일 수집
+
+on:
+  schedule:
+    # 매일 03:00 (한국 시간) = 18:00 UTC
+    - cron: '0 18 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/sync-events.mjs
+        env:
+          TOURAPI_KEY: ${{ secrets.TOURAPI_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
