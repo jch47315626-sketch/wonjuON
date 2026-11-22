@@ -17,6 +17,7 @@
     "expo-symbols": "~58.0.5",
     "expo-system-ui": "~58.0.7",
     "expo-web-browser": "~58.1.0",
+    "firebase": "^13.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-native": "0.88.1",
@@ -31,6 +32,7 @@
     "@types/react": "~19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-expo": "^58.0.4",
+    "firebase-admin": "^14.5.1",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -40,7 +42,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "fetch:events": "node --env-file-if-exists=.env.local scripts/fetch-events.mjs"
+    "fetch:events": "node --env-file-if-exists=.env.local scripts/fetch-events.mjs",
+    "sync:events": "node --env-file-if-exists=.env.local scripts/sync-events.mjs"
   },
   "private": true,
   "engines": {
