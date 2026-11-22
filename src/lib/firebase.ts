@@ -8,12 +8,12 @@ import { getFirestore, type Firestore } from 'firebase/firestore';
  * projectId 가 비어 있으면 Firebase 를 쓰지 않고 앱에 들어 있는 데이터만 보여줍니다.
  */
 const firebaseConfig: FirebaseOptions = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+  apiKey: 'AIzaSyBPVa8ZSyf0F-PBBVXcjG5WB5IXKTFxCqs',
+  authDomain: 'date-3ab2f.firebaseapp.com',
+  projectId: 'date-3ab2f',
+  storageBucket: 'date-3ab2f.firebasestorage.app',
+  messagingSenderId: '204934008339',
+  appId: '1:204934008339:web:77829d0cff148c106779e6',
 };
 
 let db: Firestore | null = null;
