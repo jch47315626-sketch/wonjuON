@@ -1,9 +1,13 @@
 rules_version = '2';
 
-// 앱은 행사를 읽기만 합니다. 쓰기는 수집 스크립트(서비스 계정, 규칙을 거치지 않음)만 합니다.
+// 앱은 행사·맛집을 읽기만 합니다. 쓰기는 수집 스크립트(서비스 계정, 규칙을 거치지 않음)만 합니다.
 service cloud.firestore {
   match /databases/{database}/documents {
     match /events/{eventId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /restaurants/{restaurantId} {
       allow read: if true;
       allow write: if false;
     }
