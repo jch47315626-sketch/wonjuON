@@ -17,18 +17,28 @@ export type Restaurant = {
   source: string;
 };
 
-/** 축제·공연·체험 등 행사 하나. */
+/** 축제·공연·행사 하나. 한국관광공사 TourAPI 분류(EV01~03)를 따름. */
 export type EventItem = {
   id: string;
   title: string;
-  category: '축제' | '공연' | '전시' | '체험·교육';
+  category: '축제' | '공연' | '행사';
   /** YYYY-MM-DD */
   startDate: string;
   /** YYYY-MM-DD */
   endDate: string;
   place: string;
-  fee: string;
-  host: string;
+  address?: string;
+  /** 예: "무료", "유료" */
+  fee?: string;
+  playtime?: string;
+  host?: string;
+  tel?: string;
+  overview?: string;
+  imageUrl?: string;
+  /** 공공누리 유형 (Type1: 출처표시, Type3: 출처표시+변경금지) */
+  imageLicense?: string;
+  lat?: number;
+  lng?: number;
   source: string;
-  url?: string;
+  sourceId?: string;
 };
